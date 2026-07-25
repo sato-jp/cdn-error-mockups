@@ -1,135 +1,161 @@
 === CDN Error Mockups ===
-Contributors: hiroshisato, pixelium  
-Donate link: https://github.com/sponsors/sato-jp  
-Tags: block, cloudflare, joke, 404  
-Requires at least: 6.9  
-Tested up to: 6.9  
+Contributors: hiroshisato, pixelium
+Donate link: https://github.com/sponsors/sato-jp
+Tags: block, cloudflare, error page, 404
+Requires at least: 6.9
+Tested up to: 6.9
 Stable tag: 1.1.1
-Requires PHP: 8.0  
-License: GPLv2 or later  
+Requires PHP: 8.0
+License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Adds a block that mimics the Cloudflare downtime error screen.
+Create customizable Cloudflare-style error page mockups with a WordPress block.
 
 == Description ==
 
-Adds a block that mimics the Cloudflare downtime error screen. Use it to create error pages that look like the official Cloudflare error pages.
+CDN Error Mockups provides a block for creating realistic Cloudflare-style
+error screens.
+Use it in error page templates, maintenance pages, design previews, and
+lighthearted site experiences.
 
-This plugin provides a Gutenberg block that displays a realistic Cloudflare error page mockup, perfect for:
-- Creating custom 404 error pages
-- Building error page templates
-- Adding humorous error messages to your site
-- Testing error page designs
+The block is independently developed and is not affiliated with, endorsed by,
+or connected to Cloudflare, Inc.
 
 = Features =
 
-- **Customizable Error Codes**: Change the error code (e.g., 404, 500, 502) via block settings
-- **Customizable Messages**: Edit the error message text to match your needs
-- **IP Address Display**: Shows visitor IP address when they click "Click to reveal" (uses WordPress REST API, no external services)
-- **Authentic Design**: Faithfully recreates the Cloudflare error page appearance
-- **Easy to Use**: Simple block interface in the Gutenberg editor
-
-This plugin is based on the [cloudflare-error-page](https://github.com/donlon/cloudflare-error-page) project, adapted as a WordPress block for the Gutenberg editor.
-
-**Important Notice:** This plugin is not affiliated with, endorsed by, or connected to Cloudflare, Inc. This plugin is an independent project created for educational and entertainment purposes.
+* Customize the error title, HTTP error code, and explanatory messages.
+* Configure Browser, Cloudflare, and Host labels and statuses independently.
+* Choose which service is presented as the source of the error.
+* Reveal the visitor's IP address without calling an external service.
+* Generate a new mock Ray ID and timestamp when the page loads.
+* Preserve keyboard focus and announce the revealed IP to assistive technology.
+* Adapt the three service statuses for desktop and narrow screens.
+* Keep the block's CSS isolated from the surrounding WordPress theme.
 
 == Installation ==
 
-= Method 1: Install from WordPress Plugin Directory =
+= Install from WordPress =
 
-1. Go to **Plugins** > **Add New** in your WordPress admin.
-2. Search for **"CDN Error Mockups"**.
-3. Click **Install Now**, then **Activate**.
+1. Open **Plugins > Add New Plugin** in WordPress.
+1. Search for **CDN Error Mockups**.
+1. Select **Install Now**, and then activate the plugin.
 
-= Method 2: Manual Installation =
+= Install a ZIP file =
 
-1. Download the plugin ZIP file from the [WordPress Plugin Directory](https://wordpress.org/plugins/cdn-error-mockups/).
-2. Go to **Plugins** > **Add Plugin** > **Upload Plugin** in your WordPress admin.
-3. Choose the downloaded ZIP file and click **Install Now**.
-4. Activate the plugin from the Plugins screen.
+1. Download the plugin ZIP from the
+   [WordPress Plugin Directory][wordpress-plugin].
+1. Open **Plugins > Add New Plugin > Upload Plugin**.
+1. Select the ZIP file and choose **Install Now**.
+1. Activate the plugin.
 
 == Usage ==
 
-1. After installing and activating the plugin, go to any page or post editor in WordPress.
-2. Click the **+** button to add a new block.
-3. Search for **"CDN Error Mockups"** or **"Cloudflare"** and select the block.
-4. The block will appear with default settings. You can customize:
-   - **Error Code**: Change the error code (e.g., 404, 500, 502, 503)
-   - **Error Message**: Edit the error message text
-5. Save or publish your page to see the error mockup on the frontend.
+1. Open a post, page, or template in the block editor.
+1. Add the **CDN Error Mockup - Cloudflare** block.
+1. Use the block settings sidebar to configure:
+   * The title and error code.
+   * The "What happened?" and "What can I do?" messages.
+   * Browser, Cloudflare, and Host names, locations, and status text.
+   * The service that should appear as the source of the error.
+1. Publish or preview the page.
 
-= Example Use Cases =
+The block works well in:
 
-- Add to your site's 404 page template
-- Create a maintenance mode page
-- Use in page templates for error handling
-- Add to custom page templates
+* 404 and other error templates.
+* Maintenance and temporary outage pages.
+* Theme and page-builder previews.
+* Demo, educational, and humorous content.
 
-== Source Code ==
+== IP address display and privacy ==
 
-The plugin’s JavaScript and CSS are built from source. The human-readable source is in the `src/` directory on [GitHub](https://github.com/sato-jp/cdn-error-mockups).
+The IP address is requested only after a visitor selects **Click to reveal**.
+The request is sent to this plugin's REST API endpoint on the same WordPress
+site.
+No external IP lookup service is contacted.
+
+The endpoint checks `CF-Connecting-IP`, `X-Forwarded-For`, and `REMOTE_ADDR`.
+Sites behind a CDN or reverse proxy should configure that proxy correctly,
+because forwarded headers can otherwise be inaccurate or spoofed.
+The displayed value is informational and should not be used for authentication
+or authorization.
 
 == Frequently Asked Questions ==
 
-= Is this plugin officially supported by Cloudflare? =
+= Is this an official Cloudflare plugin? =
 
-No. This plugin is not affiliated with, endorsed by, or connected to Cloudflare, Inc. It is an independent project created for educational and entertainment purposes.
+No.
+This is an independent project for educational and entertainment purposes.
+It is not affiliated with, endorsed by, or connected to Cloudflare, Inc.
 
-= Can I customize the error code and message? =
+= Can every part of the mock error be customized? =
 
-Yes! You can customize both the error code and error message through the block settings sidebar in the Gutenberg editor.
+The title, error code, explanatory messages, error source, and the labels and
+statuses for Browser, Cloudflare, and Host can be configured in the block
+settings sidebar.
 
-= Does this plugin collect user data? =
+= Does the plugin send visitor data to an external service? =
 
-The plugin displays visitor IP addresses when they click "Click to reveal" using WordPress's built-in REST API endpoint. No external services are used, and no data is sent outside your WordPress installation. The IP address is determined from server variables (Cloudflare headers, proxy headers, or standard remote address).
+No.
+The optional IP reveal feature uses a same-site WordPress REST API request and
+server request headers.
 
-= What WordPress version is required? =
+= Can the block be used more than once? =
 
-This plugin requires WordPress 6.9 or higher and PHP 8.0 or higher.
+Yes.
+It can be added to multiple posts, pages, and templates.
 
-= Can I use this on multiple pages? =
+= What versions are required? =
 
-Yes! You can add the block to any page, post, or template as many times as you need.
+The plugin requires WordPress 6.9 or newer and PHP 8.0 or newer.
 
-== Contributing ==
+== Source code ==
 
-Contributions are welcome! Here are ways you can contribute:
-
-- **Report Bugs**: Open an issue on [GitHub](https://github.com/sato-jp/cdn-error-mockups/issues)
-- **Suggest Features**: Share your ideas via GitHub issues
-- **Submit Pull Requests**: Send pull requests with improvements or bug fixes
-- **Improve Documentation**: Help improve the documentation
-
-For more information, visit the [GitHub repository](https://github.com/sato-jp/cdn-error-mockups).
+Human-readable JavaScript and SCSS source is available in the
+[`src` directory][source].
+Compiled assets distributed with the plugin are stored in `build`.
 
 == Screenshots ==
 
-1. Block placed in the "404 page" template
-2. Error code and message can be changed in the settings sidebar
-3. The "404 page" shown on the frontend
-
-== Upgrade Notice ==
-
-= 1.0.0 =
-
-This is a major release. Please review the changelog for details.
+1. Block placed in a 404 page template.
+2. Error code, messages, source, and service statuses in the block settings.
+3. The published error mockup on the front end.
 
 == Changelog ==
 
+= Unreleased =
+
+* Isolate block styles from the active theme.
+* Improve keyboard focus and the accessible IP reveal interaction.
+* Generate Ray IDs without depending on translated labels.
+* Add WordPress Coding Standards checks through Composer.
+* Add a reproducible WordPress Playground demo Blueprint.
+
 = 1.1.1 =
 
-* Add contextual translations for "Error code" in inspector and block mockup
+* Add contextual translations for "Error code" in the inspector and mockup.
 
 = 1.1.0 =
 
-* Current stable version
+* Add configurable Browser, Cloudflare, and Host statuses.
+* Add the same-site IP address reveal feature.
 
 = 1.0.0 =
 
-* Initial release
+* Initial release.
 
 
 
 == Credits ==
 
-This plugin is based on the idea and some code from [cloudflare-error-page](https://github.com/donlon/cloudflare-error-page) by donlon (MIT License). See [THIRD_PARTY_LICENSES.md](https://github.com/sato-jp/cdn-error-mockups/blob/main/THIRD_PARTY_LICENSES.md) for details.
+The project is based on ideas and code from
+[cloudflare-error-page][cloudflare-error-page] by donlon, licensed under the
+MIT License.
+See [THIRD_PARTY_LICENSES.md][third-party-licenses] for details.
+
+[cloudflare-error-page]: https://github.com/donlon/cloudflare-error-page
+[composer]: https://getcomposer.org/
+[deno]: https://deno.com/
+[github-repository]: https://github.com/hiroshisatoy/cdn-error-mockups
+[source]: https://github.com/hiroshisatoy/cdn-error-mockups/tree/main/src
+[third-party-licenses]: https://github.com/hiroshisatoy/cdn-error-mockups/blob/main/THIRD_PARTY_LICENSES.md
+[wordpress-plugin]: https://wordpress.org/plugins/cdn-error-mockups/
