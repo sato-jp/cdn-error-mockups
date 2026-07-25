@@ -20,9 +20,10 @@
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#view-script
  */
 
-/* eslint-disable no-console */
 /* eslint-env browser */
 /* global globalThis */
+
+import { __ } from '@wordpress/i18n';
 
 // Check if we're in the WordPress block editor
 function isBlockEditor() {
@@ -36,20 +37,19 @@ function isBlockEditor() {
 
 // Generate a random Ray ID and replace on page load
 function initRayId() {
-	const rayId = Array.from({ length: 16 }, () =>
-		Math.floor(Math.random() * 16).toString(16)
-	).join('');
-
-	// Find all Ray ID elements (handle multiple blocks on same page)
-	document.querySelectorAll('.cf-footer-item').forEach((item) => {
-		const text = item.textContent;
-		if (text.includes('Ray ID:')) {
-			const strong = item.querySelector('strong');
-			if (strong) {
-				strong.textContent = rayId;
-			}
-		}
-	});
+	// The Ray ID is the only strong element directly inside a footer item.
+	// Selecting by structure keeps this working when the visible label is translated.
+	document
+		.querySelectorAll(
+			'.wp-block-cdn-error-mockups-cloudflare .cf-error-footer .cf-footer-item > strong'
+		)
+		.forEach((element) => {
+			const values = new Uint8Array(8);
+			globalThis.crypto.getRandomValues(values);
+			element.textContent = Array.from(values, (value) =>
+				value.toString(16).padStart(2, '0')
+			).join('');
+		});
 }
 
 // Update timestamp to current time on page load
@@ -79,6 +79,16 @@ function initIpReveal() {
 	if (isBlockEditor()) {
 		return;
 	}
+
+	document.querySelectorAll('.cf-footer-ip-reveal-btn').forEach((button) => {
+		const ipSpan = findIpSpan(button);
+		button.setAttribute('aria-expanded', 'false');
+		if (ipSpan) {
+			ipSpan.setAttribute('aria-live', 'polite');
+			ipSpan.setAttribute('aria-atomic', 'true');
+		}
+	});
+
 	function findIpSpan(button) {
 		// try to find a nearby element with class 'cf-footer-ip'
 		const el = button.closest('.cf-footer-item');
@@ -112,12 +122,12 @@ function initIpReveal() {
 				cache: 'no-store',
 			});
 			if (!res.ok) {
-				return 'Unavailable';
+				return __('Unavailable', 'cdn-error-mockups');
 			}
 			const data = await res.json();
-			return data.ip || 'Unavailable';
+			return data.ip || __('Unavailable', 'cdn-error-mockups');
 		} catch (_e) {
-			return 'Unavailable';
+			return __('Unavailable', 'cdn-error-mockups');
 		}
 	}
 
@@ -131,21 +141,20 @@ function initIpReveal() {
 			return;
 		}
 
-		if (ipSpan.classList.contains('hidden')) {
+		const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+		if (!isExpanded) {
+			ipSpan.classList.remove('hidden');
+			btn.setAttribute('aria-expanded', 'true');
+			btn.textContent = __('Hide', 'cdn-error-mockups');
 			// Initial state: reveal IP. Fetch only if not loaded.
 			if (!ipSpan.textContent.trim()) {
-				ipSpan.textContent = '…';
 				const ip = await fetchIp();
 				ipSpan.textContent = ip;
 			}
-			ipSpan.classList.remove('hidden');
-			// Hide button after revealing the IP.
-			btn.classList.add('hidden');
 		} else {
-			// IP is visible: hide it again.
 			ipSpan.classList.add('hidden');
-			// Re-show button so it can be clicked again.
-			btn.classList.remove('hidden');
+			btn.setAttribute('aria-expanded', 'false');
+			btn.textContent = __('Click to reveal', 'cdn-error-mockups');
 		}
 	});
 }

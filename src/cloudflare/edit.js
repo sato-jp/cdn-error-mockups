@@ -59,8 +59,8 @@ export default function Edit({ attributes, setAttributes }) {
 	const [ip, setIp] = useState(null);
 	const [showIp, setShowIp] = useState(false);
 
-	async function revealIp() {
-		if (!ip) {
+	async function toggleIp() {
+		if (!showIp && !ip) {
 			try {
 				const data = await apiFetch({
 					path: '/cdn-error-mockups/v1/client-ip',
@@ -71,7 +71,7 @@ export default function Edit({ attributes, setAttributes }) {
 				setIp(__('Unavailable', 'cdn-error-mockups'));
 			}
 		}
-		setShowIp(true);
+		setShowIp(!showIp);
 	}
 	return (
 		<div {...useBlockProps()}>
@@ -442,20 +442,23 @@ export default function Edit({ attributes, setAttributes }) {
 								className="cf-footer-item sm:block sm:mb-1"
 							>
 								{__('Your IP:', 'cdn-error-mockups')}{' '}
-								{!showIp && (
-									<button
-										type="button"
-										className="cf-footer-ip-reveal-btn"
-										onClick={revealIp}
-									>
-										{__(
-											'Click to reveal',
-											'cdn-error-mockups'
-										)}
-									</button>
-								)}
+								<button
+									type="button"
+									className="cf-footer-ip-reveal-btn"
+									onClick={toggleIp}
+									aria-expanded={showIp}
+								>
+									{showIp
+										? __('Hide', 'cdn-error-mockups')
+										: __(
+												'Click to reveal',
+												'cdn-error-mockups'
+											)}
+								</button>
 								<span
 									className={`cf-footer-ip ${showIp ? '' : 'hidden'}`}
+									aria-live="polite"
+									aria-atomic="true"
 								>
 									{showIp
 										? (ip ??
