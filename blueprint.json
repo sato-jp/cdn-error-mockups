@@ -1,0 +1,61 @@
+{
+	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
+	"landingPage": "/cdn-error-demo/",
+	"meta": {
+		"title": "CDN Error Mockups Demo",
+		"author": "hiroshisatoy",
+		"description": "Installs CDN Error Mockups and opens a demo page containing the Cloudflare error block.",
+		"categories": [
+			"Demo",
+			"Blocks"
+		]
+	},
+	"preferredVersions": {
+		"php": "8.3",
+		"wp": "latest"
+	},
+	"features": {
+		"networking": true
+	},
+	"steps": [
+		{
+			"step": "installPlugin",
+			"pluginData": {
+				"resource": "bundled",
+				"path": "/cdn-error-mockups.zip"
+			},
+			"options": {
+				"activate": true,
+				"targetFolderName": "cdn-error-mockups"
+			},
+			"ifAlreadyInstalled": "overwrite",
+			"progress": {
+				"weight": 2,
+				"caption": "Installing CDN Error Mockups"
+			}
+		},
+		{
+			"step": "writeFile",
+			"path": "/wordpress/create-cdn-error-demo.php",
+			"data": {
+				"resource": "bundled",
+				"path": "/playground/create-demo-page.php"
+			}
+		},
+		{
+			"step": "runPHP",
+			"code": "<?php require '/wordpress/wp-load.php'; require '/wordpress/create-cdn-error-demo.php';",
+			"progress": {
+				"weight": 1,
+				"caption": "Creating the demo page"
+			}
+		},
+		{
+			"step": "rm",
+			"path": "/wordpress/create-cdn-error-demo.php"
+		},
+		{
+			"step": "login"
+		}
+	]
+}
