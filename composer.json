@@ -1,0 +1,20 @@
+{
+	"name": "sato-jp/cdn-error-mockups",
+	"description": "A WordPress block that mimics a Cloudflare downtime error screen.",
+	"type": "wordpress-plugin",
+	"license": "GPL-2.0-or-later",
+	"require-dev": {
+		"dealerdirect/phpcodesniffer-composer-installer": "^1.1",
+		"wp-coding-standards/wpcs": "^3.2"
+	},
+	"scripts": {
+		"format": "phpcbf",
+		"lint": "phpcs"
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		},
+		"sort-packages": true
+	}
+}
