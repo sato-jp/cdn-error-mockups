@@ -1,6 +1,6 @@
 <?php
 /**
- * Creates the CDN Error Mockups Playground demo page.
+ * Replaces the active block theme's 404 template with the plugin block.
  *
  * @package CDN_Error_Mockups
  */
@@ -77,23 +77,44 @@ $cdn_error_mockups_content = <<<'HTML'
 <!-- /wp:cdn-error-mockups/cloudflare -->
 HTML;
 
-$cdn_error_mockups_page      = get_page_by_path( 'cdn-error-demo', OBJECT, 'page' );
-$cdn_error_mockups_page_data = array(
-	'post_title'   => 'CDN Error Mockups Demo',
-	'post_name'    => 'cdn-error-demo',
-	'post_content' => wp_slash( $cdn_error_mockups_content ),
-	'post_status'  => 'publish',
-	'post_type'    => 'page',
+$cdn_error_mockups_theme_slug    = get_stylesheet();
+$cdn_error_mockups_template_slug = '404';
+$cdn_error_mockups_template      = get_posts(
+	array(
+		'name'           => $cdn_error_mockups_template_slug,
+		'post_type'      => 'wp_template',
+		'post_status'    => array( 'publish', 'draft' ),
+		'posts_per_page' => 1,
+		// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- One-time lookup in the small Playground template dataset.
+		'tax_query'      => array(
+			array(
+				'taxonomy' => 'wp_theme',
+				'field'    => 'slug',
+				'terms'    => $cdn_error_mockups_theme_slug,
+			),
+		),
+	)
 );
 
-if ( $cdn_error_mockups_page instanceof WP_Post ) {
-	$cdn_error_mockups_page_data['ID'] = $cdn_error_mockups_page->ID;
-	$cdn_error_mockups_page_id         = wp_update_post( $cdn_error_mockups_page_data, true );
+$cdn_error_mockups_template_data = array(
+	'post_title'   => '404',
+	'post_name'    => $cdn_error_mockups_template_slug,
+	'post_content' => wp_slash( $cdn_error_mockups_content ),
+	'post_status'  => 'publish',
+	'post_type'    => 'wp_template',
+);
+
+if ( isset( $cdn_error_mockups_template[0] ) ) {
+	$cdn_error_mockups_template_data['ID'] = $cdn_error_mockups_template[0]->ID;
+	$cdn_error_mockups_template_id         = wp_update_post( $cdn_error_mockups_template_data, true );
 } else {
-	$cdn_error_mockups_page_id = wp_insert_post( $cdn_error_mockups_page_data, true );
+	$cdn_error_mockups_template_id = wp_insert_post( $cdn_error_mockups_template_data, true );
 }
 
-if ( ! is_wp_error( $cdn_error_mockups_page_id ) ) {
-	update_option( 'show_on_front', 'page' );
-	update_option( 'page_on_front', $cdn_error_mockups_page_id );
+if ( ! is_wp_error( $cdn_error_mockups_template_id ) ) {
+	wp_set_object_terms(
+		$cdn_error_mockups_template_id,
+		$cdn_error_mockups_theme_slug,
+		'wp_theme'
+	);
 }

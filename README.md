@@ -132,7 +132,7 @@ Compiled assets distributed with the plugin are stored in `build`.
 * Improve keyboard focus and the accessible IP reveal interaction.
 * Generate Ray IDs without depending on translated labels.
 * Add WordPress Coding Standards checks through Composer.
-* Add a reproducible WordPress Playground demo Blueprint.
+* Add a reproducible WordPress Playground 404-template demo Blueprint.
 
 ### 1.1.1
 
@@ -152,7 +152,9 @@ Compiled assets distributed with the plugin are stored in `build`.
 ## WordPress Playground demo
 
 The repository includes a Blueprint that packages the current plugin, installs
-and activates it, creates a demo page containing the block, and opens that page.
+and activates it, and activates the Twenty Twenty-Five block theme.
+It replaces that theme's `404` template with the plugin block alone, without
+header or footer template parts, and opens a missing URL to render the template.
 
 Run:
 
@@ -161,8 +163,8 @@ deno task playground:demo
 ```
 
 The command builds `cdn-error-mockups.zip` and starts WordPress Playground.
-By default, the demo is available at
-<http://127.0.0.1:9400/cdn-error-demo/>.
+By default, it opens
+<http://127.0.0.1:9400/cdn-error-demo-not-found/>.
 
 The task uses Node.js 22 for Playground CLI compatibility.
 The Playground site is temporary and uses SQLite.

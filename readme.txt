@@ -128,7 +128,7 @@ Compiled assets distributed with the plugin are stored in `build`.
 * Improve keyboard focus and the accessible IP reveal interaction.
 * Generate Ray IDs without depending on translated labels.
 * Add WordPress Coding Standards checks through Composer.
-* Add a reproducible WordPress Playground demo Blueprint.
+* Add a reproducible WordPress Playground 404-template demo Blueprint.
 
 = 1.1.1 =
 

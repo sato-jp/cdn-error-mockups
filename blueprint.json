@@ -1,10 +1,10 @@
 {
 	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
-	"landingPage": "/cdn-error-demo/",
+	"landingPage": "/cdn-error-demo-not-found/",
 	"meta": {
 		"title": "CDN Error Mockups Demo",
 		"author": "hiroshisatoy",
-		"description": "Installs CDN Error Mockups and opens a demo page containing the Cloudflare error block.",
+		"description": "Installs CDN Error Mockups, replaces the block theme 404 template with the plugin block, and opens a missing URL.",
 		"categories": [
 			"Demo",
 			"Blocks"
@@ -35,24 +35,39 @@
 			}
 		},
 		{
+			"step": "installTheme",
+			"themeData": {
+				"resource": "wordpress.org/themes",
+				"slug": "twentytwentyfive"
+			},
+			"options": {
+				"activate": true
+			},
+			"ifAlreadyInstalled": "overwrite",
+			"progress": {
+				"weight": 1,
+				"caption": "Activating a block theme"
+			}
+		},
+		{
 			"step": "writeFile",
-			"path": "/wordpress/create-cdn-error-demo.php",
+			"path": "/wordpress/create-cdn-error-404-template.php",
 			"data": {
 				"resource": "bundled",
-				"path": "/playground/create-demo-page.php"
+				"path": "/playground/create-404-template.php"
 			}
 		},
 		{
 			"step": "runPHP",
-			"code": "<?php require '/wordpress/wp-load.php'; require '/wordpress/create-cdn-error-demo.php';",
+			"code": "<?php require '/wordpress/wp-load.php'; require '/wordpress/create-cdn-error-404-template.php';",
 			"progress": {
 				"weight": 1,
-				"caption": "Creating the demo page"
+				"caption": "Replacing the 404 template"
 			}
 		},
 		{
 			"step": "rm",
-			"path": "/wordpress/create-cdn-error-demo.php"
+			"path": "/wordpress/create-cdn-error-404-template.php"
 		},
 		{
 			"step": "login"
