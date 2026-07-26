@@ -149,10 +149,10 @@ Compiled assets distributed with the plugin are stored in `build`.
 
 <!-- only:github/ -->
 
-## WordPress Playground demo
+## WordPress Playground demos
 
-The repository includes a Blueprint in `.playground/` that packages the current
-plugin, installs and activates it, and activates the Twenty Twenty-Five block
+The local development Blueprint in `.playground/` packages the current working
+copy, installs and activates it, and activates the Twenty Twenty-Five block
 theme.
 It replaces that theme's `404` template with the plugin block alone, without
 header or footer template parts, and opens a missing URL to render the template.
@@ -170,6 +170,12 @@ By default, it opens
 
 The task uses Node.js 22 for Playground CLI compatibility.
 The Playground site is temporary and uses SQLite.
+
+The WordPress.org Plugin Directory preview uses
+`.wordpress-org/blueprints/blueprint.json`.
+That Blueprint installs the latest stable `cdn-error-mockups` release directly
+from the WordPress.org Plugin Directory before preparing and opening the same
+404 template demo.
 
 ## Development
 

@@ -1,5 +1,6 @@
 /.git
 /.github
+/.playground
 /.wordpress-org
 /node_modules
 /src

@@ -1,0 +1,75 @@
+{
+	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
+	"landingPage": "/cdn-error-demo-not-found/",
+	"meta": {
+		"title": "CDN Error Mockups Preview",
+		"author": "hiroshisatoy",
+		"description": "Installs the latest stable CDN Error Mockups release from WordPress.org, replaces the block theme 404 template with the plugin block, and opens a missing URL.",
+		"categories": [
+			"Demo",
+			"Blocks"
+		]
+	},
+	"preferredVersions": {
+		"php": "8.3",
+		"wp": "latest"
+	},
+	"features": {
+		"networking": true
+	},
+	"steps": [
+		{
+			"step": "installPlugin",
+			"pluginData": {
+				"resource": "wordpress.org/plugins",
+				"slug": "cdn-error-mockups"
+			},
+			"options": {
+				"activate": true
+			},
+			"ifAlreadyInstalled": "overwrite",
+			"progress": {
+				"weight": 2,
+				"caption": "Installing CDN Error Mockups from WordPress.org"
+			}
+		},
+		{
+			"step": "installTheme",
+			"themeData": {
+				"resource": "wordpress.org/themes",
+				"slug": "twentytwentyfive"
+			},
+			"options": {
+				"activate": true
+			},
+			"ifAlreadyInstalled": "overwrite",
+			"progress": {
+				"weight": 1,
+				"caption": "Activating a block theme"
+			}
+		},
+		{
+			"step": "writeFile",
+			"path": "/wordpress/create-cdn-error-404-template.php",
+			"data": {
+				"resource": "url",
+				"url": "https://raw.githubusercontent.com/hiroshisatoy/cdn-error-mockups/main/.playground/create-404-template.php"
+			}
+		},
+		{
+			"step": "runPHP",
+			"code": "<?php require '/wordpress/wp-load.php'; require '/wordpress/create-cdn-error-404-template.php';",
+			"progress": {
+				"weight": 1,
+				"caption": "Replacing the 404 template"
+			}
+		},
+		{
+			"step": "rm",
+			"path": "/wordpress/create-cdn-error-404-template.php"
+		},
+		{
+			"step": "login"
+		}
+	]
+}
