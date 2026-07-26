@@ -25,7 +25,8 @@
 				"slug": "cdn-error-mockups"
 			},
 			"options": {
-				"activate": true
+				"activate": true,
+				"targetFolderName": "cdn-error-mockups"
 			},
 			"ifAlreadyInstalled": "overwrite",
 			"progress": {
