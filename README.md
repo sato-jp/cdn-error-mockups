@@ -42,8 +42,8 @@ or connected to Cloudflare, Inc.
 
 ### Install a ZIP file
 
-1. Download the plugin ZIP from the
-   [WordPress Plugin Directory][wordpress-plugin].
+1. Download `cdn-error-mockups.zip` from the
+   [latest GitHub release][github-release].
 1. Open **Plugins > Add New Plugin > Upload Plugin**.
 1. Select the ZIP file and choose **Install Now**.
 1. Activate the plugin.
@@ -235,7 +235,7 @@ See [THIRD_PARTY_LICENSES.md][third-party-licenses] for details.
 [cloudflare-error-page]: https://github.com/donlon/cloudflare-error-page
 [composer]: https://getcomposer.org/
 [deno]: https://deno.com/
+[github-release]: https://github.com/hiroshisatoy/cdn-error-mockups/releases/latest
 [github-repository]: https://github.com/hiroshisatoy/cdn-error-mockups
 [source]: https://github.com/hiroshisatoy/cdn-error-mockups/tree/main/src
 [third-party-licenses]: https://github.com/hiroshisatoy/cdn-error-mockups/blob/main/THIRD_PARTY_LICENSES.md
-[wordpress-plugin]: https://wordpress.org/plugins/cdn-error-mockups/
