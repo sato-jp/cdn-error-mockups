@@ -151,8 +151,9 @@ Compiled assets distributed with the plugin are stored in `build`.
 
 ## WordPress Playground demo
 
-The repository includes a Blueprint that packages the current plugin, installs
-and activates it, and activates the Twenty Twenty-Five block theme.
+The repository includes a Blueprint in `.playground/` that packages the current
+plugin, installs and activates it, and activates the Twenty Twenty-Five block
+theme.
 It replaces that theme's `404` template with the plugin block alone, without
 header or footer template parts, and opens a missing URL to render the template.
 
@@ -162,7 +163,8 @@ Run:
 deno task playground:demo
 ```
 
-The command builds `cdn-error-mockups.zip` and starts WordPress Playground.
+The command builds `cdn-error-mockups.zip`, copies it into `.playground/` as a
+temporary bundled resource, and starts WordPress Playground.
 By default, it opens
 <http://127.0.0.1:9400/cdn-error-demo-not-found/>.
 

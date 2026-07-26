@@ -8,7 +8,7 @@
 		"env:stop": "deno x wp-env stop",
 		"env:restart": "deno x wp-env restart",
 		"env:wp:cli:plugin:check": "deno x wp-env run cli wp plugin check cdn-error-mockups --exclude-directories='node_modules' --exclude-files='.DS_Store,.gitignore,.wp-env.json,.editorconfig'",
-		"playground:demo": "deno task plugin-zip && npx -p node@22 -p @wp-playground/cli@latest wp-playground-cli server --blueprint=blueprint.json --blueprint-may-read-adjacent-files",
+		"playground:demo": "deno task plugin-zip && cp cdn-error-mockups.zip .playground/cdn-error-mockups.zip && npx -p node@22 -p @wp-playground/cli@latest wp-playground-cli server --blueprint=.playground/blueprint.json --blueprint-may-read-adjacent-files",
 		"format": "deno task format:assets && deno task format:php",
 		"format:assets": "deno x wp-scripts format",
 		"format:php": "composer format",

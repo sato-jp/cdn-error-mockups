@@ -54,7 +54,7 @@
 			"path": "/wordpress/create-cdn-error-404-template.php",
 			"data": {
 				"resource": "bundled",
-				"path": "/playground/create-404-template.php"
+				"path": "/create-404-template.php"
 			}
 		},
 		{
