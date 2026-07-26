@@ -5,7 +5,7 @@
  * Description:       Adds a block that mimics the Cloudflare downtime error screen.
  * Requires at least: 6.9
  * Requires PHP:      8.0
- * Version:           1.1.1
+ * Version:           1.2.0
  * Author:            Hiroshi Sato
  * Text Domain:       cdn-error-mockups
  * License:           GPLv2 or later

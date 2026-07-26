@@ -4,7 +4,7 @@ Donate link: https://github.com/sponsors/sato-jp
 Tags: block, cloudflare, error page, 404
 Requires at least: 6.9
 Tested up to: 6.9
-Stable tag: 1.1.1
+Stable tag: 1.2.0
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -122,7 +122,7 @@ Compiled assets distributed with the plugin are stored in `build`.
 
 == Changelog ==
 
-= Unreleased =
+= 1.2.0 =
 
 * Isolate block styles from the active theme.
 * Improve keyboard focus and the accessible IP reveal interaction.
